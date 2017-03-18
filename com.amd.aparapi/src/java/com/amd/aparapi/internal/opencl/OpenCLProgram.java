@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.security.MessageDigest;
-
 import com.amd.aparapi.device.OpenCLDevice;
 import com.amd.aparapi.internal.jni.OpenCLJNI;
 
@@ -60,16 +58,7 @@ public class OpenCLProgram extends OpenCLJNI{
    }
 
    public OpenCLProgram createProgram(OpenCLDevice context) {
-      String uniqueId;
-      try {
-         MessageDigest digest;
-         digest = MessageDigest.getInstance("SHA-256");
-         digest.digest(source.getBytes());
-         uniqueId = digest.toString();
-      } catch (java.security.NoSuchAlgorithmException e) {
-         uniqueId = ""; // "" explicitly is explicitly non-unique
-      }
-      return createProgram(context, source, uniqueId);
+      return createProgram(context, source);
    }
 
    public OpenCLDevice getDevice() {
