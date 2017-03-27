@@ -176,7 +176,7 @@ public class KernelRunner extends KernelRunnerJNI{
                }
             }
          }
-         kernel.execute(0);
+         kernel.execute(1);
       } else if (kernel.isRunningCL()) {
          logger.log(Level.SEVERE, "KernelRunner#cleanUpArrays() could not execute as no args available (Kernel has not been executed?)");
       }
