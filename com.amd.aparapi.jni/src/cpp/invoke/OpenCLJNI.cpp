@@ -510,6 +510,10 @@ JNI_JAVA(jobject, OpenCLJNI, getPlatforms)
                         JNIHelper::callVoid(jenv, deviceInstance, "setMaxComputeUnits", ArgsVoidReturn(IntArg),  maxComputeUnits);
 
 
+                        cl_uint maxClockFrequency;
+                        status = clGetDeviceInfo(deviceIds[deviceIdx], CL_DEVICE_MAX_CLOCK_FREQUENCY,  sizeof(maxClockFrequency), &maxClockFrequency, NULL);
+                        JNIHelper::callVoid(jenv, deviceInstance, "setMaxClockFrequency", ArgsVoidReturn(IntArg),  maxClockFrequency);
+
 
                         cl_uint maxWorkItemDimensions;
                         status = clGetDeviceInfo(deviceIds[deviceIdx], CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS,  sizeof(maxWorkItemDimensions), &maxWorkItemDimensions, NULL);

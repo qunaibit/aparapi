@@ -19,6 +19,8 @@ public class OpenCLDevice extends Device{
 
    private int maxComputeUnits;
 
+   private int maxClockFrequency;
+
    private long localMemSize;
 
    private long globalMemSize;
@@ -51,7 +53,15 @@ public class OpenCLDevice extends Device{
    public void setMaxComputeUnits(int _maxComputeUnits) {
       maxComputeUnits = _maxComputeUnits;
    }
+   
+   public int getMaxClockFrequency() {
+	      return maxClockFrequency;
+	   }
 
+   public void setMaxClockFrequency(int _maxClockFrequency) {
+	   maxClockFrequency = _maxClockFrequency;
+	   }
+   
    public long getLocalMemSize() {
       return localMemSize;
    }
@@ -493,7 +503,7 @@ public class OpenCLDevice extends Device{
       s.append("}");
 
       return ("Device " + deviceId + "\n  vendor = " + getOpenCLPlatform().getVendor()
-            + "\n  type:" + type + "\n  maxComputeUnits=" + maxComputeUnits + "\n  maxWorkItemDimensions="
+            + "\n  type:" + type + "\n  maxComputeUnits=" + maxComputeUnits + "\n  maxClockFrequency=" + maxClockFrequency + "\n  maxWorkItemDimensions="
             + maxWorkItemDimensions + "\n  maxWorkItemSizes=" + s + "\n  maxWorkWorkGroupSize=" + maxWorkGroupSize
             + "\n  globalMemSize=" + globalMemSize + "\n  localMemSize=" + localMemSize);
    }
