@@ -41,6 +41,7 @@ import com.amd.aparapi.*;
 import com.amd.aparapi.Kernel.Constant;
 import com.amd.aparapi.Kernel.*;
 import com.amd.aparapi.device.*;
+import com.amd.aparapi.device.Device.TYPE;
 import com.amd.aparapi.internal.annotation.*;
 import com.amd.aparapi.internal.exception.*;
 import com.amd.aparapi.internal.instruction.InstructionSet.*;
@@ -176,7 +177,8 @@ public class KernelRunner extends KernelRunnerJNI{
                }
             }
          }
-         kernel.execute(1);
+         if(kernel.getTargetDevice() instanceof OpenCLDevice && ((OpenCLDevice)kernel.getTargetDevice()).getType() == TYPE.GPU)
+        	 kernel.execute(0);
       } else if (kernel.isRunningCL()) {
          logger.log(Level.SEVERE, "KernelRunner#cleanUpArrays() could not execute as no args available (Kernel has not been executed?)");
       }
