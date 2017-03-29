@@ -1105,6 +1105,7 @@ JNI_JAVA(jint, KernelRunnerJNI, runKernelJNI)
 
       int argPos = 0;
       // Need to capture array refs
+      clock_t tic = clock();
       if (jniContext->firstRun || needSync) {
          try {
             updateNonPrimitiveReferences(jenv, jobj, jniContext);
@@ -1120,6 +1121,10 @@ JNI_JAVA(jint, KernelRunnerJNI, runKernelJNI)
       try {
          int writeEventCount = 0;
          processArgs(jenv, jniContext, argPos, writeEventCount);
+         clock_t toc = clock();
+//         printf("Elapsed: %d ms\n", (long)(((double)(toc - tic) / CLOCKS_PER_SEC) * 1000));
+         jobject KernelProfileClassInstance = JNIHelper::createInstance(jenv, KernelProfileClass, VoidReturn);
+         JNIHelper::callVoid(jenv, KernelProfileClassInstance, "setDataTransferTime", ArgsVoidReturn(LongArg),  (long)(((double)(toc - tic) / CLOCKS_PER_SEC) * 1000));
          enqueueKernel(jniContext, range, passes, argPos, writeEventCount);
          int readEventCount = getReadEvents(jenv, jniContext);
          waitForReadEvents(jniContext, readEventCount, passes);

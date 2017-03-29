@@ -48,6 +48,7 @@
 #define AparapiDevicePackage(name) "com/amd/aparapi/device/" name
 #define AparapiOpenCLPackage(name) "com/amd/aparapi/internal/opencl/" name
 #define AparapiUtilPackage(name) "com/amd/aparapi/internal/util/" name
+#define AparapiKernelPackage(name) "com/amd/aparapi/internal/kernel/" name
 
 #define ProfileInfoClass AparapiPackage("ProfileInfo")
 #define OpenCLKernelClass AparapiOpenCLPackage("OpenCLKernel")
@@ -61,6 +62,7 @@
 #define ListClass JavaUtilPackage("List")
 #define ArrayListClass JavaUtilPackage("ArrayList")
 #define DeviceTypeClass AparapiDevicePackage("Device$TYPE")
+#define KernelProfileClass AparapiKernelPackage("KernelProfile")
 
 #define ARG(name) "L" name ";"
 
@@ -79,6 +81,7 @@
 #define LongArg "J"
 #define IntArg "I"
 #define ArrayArg(name) "[" ARG(name)
+#define KernelProfileClassArg ARG(KernelProfileClass)
 
 #define Args(name) "(" name ")"
 

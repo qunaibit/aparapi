@@ -19,7 +19,14 @@ public class KernelProfile {
    private Device currentDevice;
    private Device lastDevice;
    private KernelDeviceProfile currentDeviceProfile;
-
+   
+   private long currentDataTransferTime;
+   public static KernelProfile dummyProfile;
+   public KernelProfile()
+   {
+	   kernelClass = null;
+	   dummyProfile = this;
+   }
    public KernelProfile(Class<? extends Kernel> _kernelClass) {
       kernelClass = _kernelClass;
    }
@@ -102,5 +109,14 @@ public class KernelProfile {
 
    public KernelDeviceProfile getDeviceProfile(Device device) {
       return deviceProfiles.get(device);
+   }
+   
+   public long getDataTransferTime()
+   {
+	   return currentDataTransferTime;
+   }
+   public void setDataTransferTime(long time)
+   {
+	   currentDataTransferTime = time;
    }
 }
