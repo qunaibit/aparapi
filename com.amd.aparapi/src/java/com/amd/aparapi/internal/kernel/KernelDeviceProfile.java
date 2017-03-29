@@ -190,6 +190,10 @@ public class KernelDeviceProfile {
       builder.append(cell);
    }
 
+   public Device getDevice() {
+	return device;
+   }
+
    @Override
    public String toString() {
       return "KernelDeviceProfile{" + kernel.toString() + ", " + device.getShortDescription() + "}";
