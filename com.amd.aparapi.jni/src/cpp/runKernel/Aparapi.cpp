@@ -1103,9 +1103,11 @@ JNI_JAVA(jint, KernelRunnerJNI, runKernelJNI)
       }
 
 
+      struct timeval  tv1, tv2;
+      gettimeofday(&tv1, NULL);
+
       int argPos = 0;
       // Need to capture array refs
-      clock_t tic = clock();
       if (jniContext->firstRun || needSync) {
          try {
             updateNonPrimitiveReferences(jenv, jobj, jniContext);
@@ -1121,10 +1123,11 @@ JNI_JAVA(jint, KernelRunnerJNI, runKernelJNI)
       try {
          int writeEventCount = 0;
          processArgs(jenv, jniContext, argPos, writeEventCount);
-         clock_t toc = clock();
+         gettimeofday(&tv2, NULL);
 //         printf("Elapsed: %d ms\n", (long)(((double)(toc - tic) / CLOCKS_PER_SEC) * 1000));
          jobject KernelProfileClassInstance = JNIHelper::createInstance(jenv, KernelProfileClass, VoidReturn);
-         JNIHelper::callVoid(jenv, KernelProfileClassInstance, "setDataTransferTime", ArgsVoidReturn(LongArg),  (long)(((double)(toc - tic) / CLOCKS_PER_SEC) * 1000));
+         long dataTransferTime = (long) ( (double) (tv2.tv_usec - tv1.tv_usec) / 1000 + (double) (tv2.tv_sec - tv1.tv_sec) );
+         JNIHelper::callVoid(jenv, KernelProfileClassInstance, "setDataTransferTime", ArgsVoidReturn(LongArg),  dataTransferTime);
          enqueueKernel(jniContext, range, passes, argPos, writeEventCount);
          int readEventCount = getReadEvents(jenv, jniContext);
          waitForReadEvents(jniContext, readEventCount, passes);

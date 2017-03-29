@@ -33,8 +33,7 @@
    direct product is subject to national security controls as identified on the Commerce Control List (currently 
    found in Supplement 1 to Part 774 of EAR).  For the most current Country Group listings, or for additional 
    information about the EAR or your obligations under those regulations, please refer to the U.S. Bureau of Industry
-   and Security’s website at http://www.bis.doc.gov/. 
-   */
+   and Securityï¿½s website at http://www.bis.doc.gov/.   */
 
 #ifndef COMMON_H
 #define COMMON_H
@@ -43,6 +42,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sys/time.h>
 
 #if not defined __APPLE__ && not defined  __FreeBSD__
 #include <malloc.h>
